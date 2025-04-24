@@ -7,18 +7,16 @@ using MongoDB.Driver;
 
 namespace api.Repositorys;
 
-public class AccuntRepository : IAccuntRepository
+public class AccountRepository : IAccountRepository
 {
     private readonly IMongoCollection<AppUser> _collection;
 
     // Dependency Injection
-    public AccuntRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
     }
-
-
 
     public async Task<LoggedInDto?> RegisterAsync(AppUser UserInput, CancellationToken cancellationToken)
     {
