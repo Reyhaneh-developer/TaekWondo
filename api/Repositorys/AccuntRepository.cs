@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.DTOs;
 using api.Interfaces;
 using api.Models;
@@ -21,27 +17,28 @@ public class AccuntRepository : IAccuntRepository
         _collection = dbName.GetCollection<AppUser>("users");
     }
 
-    public Task<DeleteResult?> DeleteByIdAsynce(string userId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
 
-    public Task<List<AppUser>?> GetAllSynce(CancellationToken cancellationToken)
+
+    public async Task<LoggedInDto?> RegisterAsync(AppUser UserInput, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        
     }
 
     public Task<LoggedInDto?> LoginAsynce(AppUser UserInput, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
-
-    public Task<LoggedInDto?> RegisterAsync(AppUser UserInput, CancellationToken cancellationToken)
+    public Task<List<AppUser>?> GetAllSynce(CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
     public Task<LoggedInDto?> UpdateByIdAsynce(string userid, AppUser userInput, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<DeleteResult?> DeleteByIdAsynce(string userId, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
