@@ -35,7 +35,7 @@ public class AccountRepository : IAccountRepository
         return loggedInDto;
     }
 
-    public async Task<LoggedInDto?> LoginAsynce(AppUser UserInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> LoginAsynce(LoginDto UserInput, CancellationToken cancellationToken)
     {
         AppUser user =
         await _collection.Find(doc => doc.Email == UserInput.Email && doc.Password == UserInput.Password).FirstOrDefaultAsync(cancellationToken);

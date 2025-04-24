@@ -1,14 +1,15 @@
 using api.DTOs;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
 
 public class AccountController(IAccountRepository accountRepository) : BaseApiController
-{ 
+{
     [HttpPost("register")]
-       public async Task<ActionResult<LoggedInDto>> Register(AppUser userInput, CancellationToken cancellationToken)
+    public async Task<ActionResult<LoggedInDto>> Register(AppUser userInput, CancellationToken cancellationToken)
 
     {
         if (userInput.Password != userInput.ConfirmPassword)
@@ -20,5 +21,16 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
             return BadRequest("This email is already taken");
 
         return Ok(loggedInDto);
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<LoggedInDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
+    {
+        LoggedInDto? loggedInDto = await accountRepository.LoginAsynce(userInput, cancellationToken);
+
+        if (loggedInDto is null)
+            return BadRequest("Email or password is wrong");
+
+        return loggedInDto;
     }
 }
