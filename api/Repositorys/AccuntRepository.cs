@@ -2,6 +2,7 @@ using api.DTOs;
 using api.Interfaces;
 using api.Models;
 using api.Settings;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace api.Repositorys;
@@ -52,18 +53,43 @@ public class AccuntRepository : IAccuntRepository
         return loggedInDto;
     }
 
-    public Task<List<AppUser>?> GetAllSynce(CancellationToken cancellationToken)
+    public async Task<List<AppUser>?> GetAllSynce(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        List<AppUser> appUsers = await _collection.Find(new BsonDocument()).ToListAsync(cancellationToken);
+
+        if (appUsers.Count == 0)
+            return null;
+
+        return appUsers;
     }
 
-    public Task<LoggedInDto?> UpdateByIdAsynce(string userid, AppUser userInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> UpdateByIdAsynce(string userId, AppUser userInput, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        UpdateDefinition<AppUser> updateDef = Builders<AppUser>.Update
+        .Set(user => user.Email, userInput.Email.Trim().ToLower());
+
+        await _collection.UpdateOneAsync(user => user.Id == userId, updateDef, null, cancellationToken);
+
+        AppUser appUser = await _collection.Find(user => user.Id == userId).FirstOrDefaultAsync(cancellationToken);
+
+        if (appUser is null)
+            return null;
+
+        LoggedInDto loggedInDto = new(
+            Email: appUser.Email,
+            Name: appUser.Name
+        );
+
+        return loggedInDto;
     }
 
     public async Task<DeleteResult?> DeleteByIdAsynce(string userId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        AppUser appUser = await _collection.Find<AppUser>(doc => doc.Id == userId).FirstOrDefaultAsync(cancellationToken);
+
+        if (appUser is null)
+            return null;
+
+        return await _collection.DeleteOneAsync<AppUser>(doc => doc.Id == userId, cancellationToken);
     }
 }
