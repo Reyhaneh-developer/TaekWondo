@@ -35,7 +35,7 @@ public class AccountRepository : IAccountRepository
         return loggedInDto;
     }
 
-    public async Task<LoggedInDto?> LoginAsynce(LoginDto UserInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> LoginAsync(LoginDto UserInput, CancellationToken cancellationToken)
     {
         AppUser user =
         await _collection.Find(doc => doc.Email == UserInput.Email && doc.Password == UserInput.Password).FirstOrDefaultAsync(cancellationToken);
@@ -61,7 +61,7 @@ public class AccountRepository : IAccountRepository
         return appUsers;
     }
 
-    public async Task<LoggedInDto?> UpdateByIdAsynce(string userId, AppUser userInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
     {
         UpdateDefinition<AppUser> updateDef = Builders<AppUser>.Update
         .Set(user => user.Email, userInput.Email.Trim().ToLower());
@@ -81,7 +81,7 @@ public class AccountRepository : IAccountRepository
         return loggedInDto;
     }
 
-    public async Task<DeleteResult?> DeleteByIdAsynce(string userId, CancellationToken cancellationToken)
+    public async Task<DeleteResult?> DeleteByIdAsync(string userId, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(doc => doc.Id == userId).FirstOrDefaultAsync(cancellationToken);
 
