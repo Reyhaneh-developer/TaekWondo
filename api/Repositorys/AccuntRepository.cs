@@ -36,10 +36,22 @@ public class AccuntRepository : IAccuntRepository
         return loggedInDto;
     }
 
-    public Task<LoggedInDto?> LoginAsynce(AppUser UserInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> LoginAsynce(AppUser UserInput, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        AppUser user =
+        await _collection.Find(doc => doc.Email == UserInput.Email && doc.Password == UserInput.Password).FirstOrDefaultAsync(cancellationToken);
+
+        if (user is null)
+            return null;
+
+        LoggedInDto loggedInDto = new(
+            Email: user.Email,
+            Name: user.Name
+        );
+
+        return loggedInDto;
     }
+
     public Task<List<AppUser>?> GetAllSynce(CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
