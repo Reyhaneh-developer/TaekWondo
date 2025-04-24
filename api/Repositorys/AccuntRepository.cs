@@ -8,7 +8,7 @@ namespace api.Repositorys;
 
 public class AccuntRepository : IAccuntRepository
 {
- private readonly IMongoCollection<AppUser> _collection;
+    private readonly IMongoCollection<AppUser> _collection;
 
     // Dependency Injection
     public AccuntRepository(IMongoClient client, IMongoDbSettings dbSettings)
@@ -21,7 +21,19 @@ public class AccuntRepository : IAccuntRepository
 
     public async Task<LoggedInDto?> RegisterAsync(AppUser UserInput, CancellationToken cancellationToken)
     {
-        
+        AppUser user = await _collection.Find<AppUser>(doc => doc.Email == UserInput.Email).FirstOrDefaultAsync(cancellationToken);
+
+        if (user is not null)
+            return null;
+
+        await _collection.InsertOneAsync(UserInput, null, cancellationToken);
+
+        LoggedInDto loggedInDto = new(
+            Email: UserInput.Email,
+            Name: UserInput.Name
+        );
+
+        return loggedInDto;
     }
 
     public Task<LoggedInDto?> LoginAsynce(AppUser UserInput, CancellationToken cancellationToken)
