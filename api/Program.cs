@@ -4,17 +4,10 @@ using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-
-
-builder.Services.AddControllers();
-
-
-var app = builder.Build();
 #region MongoDbSettings
 ///// get values from this file: appsettings.Development.json /////
 // get section
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection(nameof(MongoDbSettings)));
-
 
 // get values
 builder.Services.AddSingleton<IMongoDbSettings>(serviceProvider =>
@@ -31,8 +24,12 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 });
 
 
-#endregion MongoDbSettings
+#endregion MongoDbSetting
 
+builder.Services.AddControllers();
+
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
