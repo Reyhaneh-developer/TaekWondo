@@ -10,6 +10,7 @@ string Password,
 string ConfirmPassword,
 string gender,
 string Country,
+string City,
 string SkillLevel,
 int Age,
 int DatOfBirth
