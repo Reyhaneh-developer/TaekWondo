@@ -1,4 +1,35 @@
-<div class="container"
-h>
-
+<div class="container">
+    <h1>Find Your Beloved one!</h1>
+    <div class="members-container">
+        @for (member of membrs; track $index) {
+        <mat-card class card>
+            <div class="card-imag-wrapper">
+                <img src="member.jpg" alt="{{member.name}}">
+                <ul class="user-icons">
+                    <li>
+                        <button mat-mini-fab>
+                            <mat-icon color="parimary">Person-add</mat-icon>
+                        </button>
+                    </li>
+                    <li>
+                        <button mat-mini-fab>
+                            <mat-icon color="warn">favorite</mat-icon>
+                        </button>
+                    </li>
+                    <li>
+                        <button mat-mini-fab>
+                            <mat-icon color="accep">mail</mat-icon>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <mat-card-header>
+                <div class="title">
+                    <mat-icon>boy</mat-icon>
+                </div>
+                <mat-card-subtitle>{{member.city}}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+        }
+    </div>
 </div>
