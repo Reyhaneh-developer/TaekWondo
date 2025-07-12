@@ -1,9 +1,3 @@
-using api.DTOs;
-using api.Interfaces;
-using api.Models;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-
 namespace api.Controllers;
 
 public class AccountController(IAccountRepository accountRepository) : BaseApiController
@@ -35,7 +29,7 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
     }
 
     [HttpDelete("delete/{userId}")]
-    public async Task<ActionResult<DeleteResult>> DeletById(string userId, CancellationToken cancellationToken)
+    public async Task<ActionResult<DeleteResult>> DeleteById(string userId, CancellationToken cancellationToken)
     {
         DeleteResult? deleteResult = await accountRepository.DeleteByIdAsync(userId, cancellationToken);
 

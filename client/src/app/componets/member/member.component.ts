@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { Member } from '../../models/member.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { Observable } from 'rxjs';
+import { MemberService } from '../../services/member.service';
 
 @Component({
   selector: 'app-member',
   imports: [
-    RouterLink,
     MatCardModule,
     MatIconModule
   ],
@@ -16,7 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './member.component.scss'
 })
 export class MemberComponent {
-  accessorService = inject(AccountService);
+  // accessorService = inject(AccountService);
+  memberService = inject(MemberService);
   membrs: Member[] | undefined;
 
   ngOnInit(): void {
@@ -24,9 +26,11 @@ export class MemberComponent {
   }
 
   getAll(): void {
-    this.accessorService.getAllMember().subscribe({
+    let allMember$: Observable<Member[]> = this.memberService.getAllMembers();
+
+    allMember$.subscribe({
       next: (res) => {
-        this.membrs = res
+        this.membrs = res;
       }
     })
   }

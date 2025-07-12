@@ -1,13 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using api.DTOs;
-using api.Interfaces;
-using api.Models;
-using api.Settings;
-using MongoDB.Driver;
-
 namespace api.Repositorys;
 
 public class UserRepository : IUserRepository
@@ -20,6 +10,7 @@ public class UserRepository : IUserRepository
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
     }
+
     public async Task<LoggedInDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
     {
         UpdateDefinition<AppUser> updateDef = Builders<AppUser>.Update
@@ -39,5 +30,4 @@ public class UserRepository : IUserRepository
 
         return loggedInDto;
     }
-
 }

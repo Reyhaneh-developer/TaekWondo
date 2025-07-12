@@ -10,5 +10,5 @@ export interface AppUser {
     city: string;
     skillLevel: string;
     age: number;
-    datOfBirth: number;
+    DatOfBirth: number;
 }

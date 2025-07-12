@@ -6,15 +6,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppUser } from '../../../models/app-user.moder';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-register',
   imports: [
     RouterLink,
 MatButtonModule,MatInputModule,
+MatFormFieldModule,MatStepperModule,
 MatFormFieldModule,
-MatFormFieldModule,
-FormsModule,ReactiveFormsModule
+FormsModule,ReactiveFormsModule,
+MatIconModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -99,12 +102,14 @@ export class RegisterComponent {
       city: this.CityCtrl.value,
       skillLevel: this.SkillLevelCtrl.value,
       age: this.AgeCtrl.value,
-      datOfBirth: this.DatOfBirthCtrl.value
+      DatOfBirth: this.DatOfBirthCtrl.value
     }
 
-    this.accountService.register(user).subscribe({
-      next: (res) => console.log(res),
-      error: (err) => console.log(err.error)
-    });
+let registerResponse$ = this.accountService.register(user);
+
+registerResponse$.subscribe({
+  next: (res) => console.log(res),
+  error: (err) => console.log(err.error)
+});
   }
 }

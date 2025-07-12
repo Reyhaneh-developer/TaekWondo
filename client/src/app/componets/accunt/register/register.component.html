@@ -1,71 +1,208 @@
 <section>
-    <div class="item-1">
-        <form>
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input type="email" [formControl]="EmailCtrl" matInput>
-            </mat-form-field>
+    <mat-stepper linear="isLinear" #stepper>
+        <mat-step [stepControl]="registerFg">
+            <div class="item-1">
+                <form [formGroup]="registerFg">
+                    <ng-template matStepLabel>Fill out your name</ng-template>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input type="email" [formControl]="EmailCtrl" matInput>
+                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                        <img src="images/teak.jpeg" alt="">
+                        <video src=""></video>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Name</mat-label>
-                <input type="text" [formControl]="NameCtrl" matInput>
-            </mat-form-field>
+                    </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>LastName</mat-label>
-                <input type="text" [formControl]="LastNameCtrl" matInput>
-            </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input type="text" [formControl]="NameCtrl" matInput>
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>NationalId</mat-label>
-                <input type="email" [formControl]="NationalIdCtrl" matInput>
-            </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>LastName</mat-label>
+                        <input type="text" [formControl]="LastNameCtrl" matInput>
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Password</mat-label>
-                <input type="password" [formControl]="PasswordCtrl" matInput>
-            </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>NationalId</mat-label>
+                        <input type="text" [formControl]="NationalIdCtrl" matInput>
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                </form>
+            </div>
+            <div>
+                <button matButton matStepperNext  mat-flat-button="primary">Next</button>
+            </div>
+        </mat-step>
 
-            <mat-form-field appearance="outline">
-                <mat-label>ConfirmPassword</mat-label>
-                <input type="Password" [formControl]="ConfirmPasswordCtrl" matInput>
-            </mat-form-field>
+        <mat-step [stepControl]="registerFg" label="Fill out your address">
+            <div class="item-1">
+                <form [formGroup]="registerFg">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input type="password" [formControl]="PasswordCtrl" matInput>
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Gender</mat-label>
-                <input type="text" [formControl]="GenderCtrl" matInput>
-            </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>ConfirmPassword</mat-label>
+                        <input type="Password" [formControl]="ConfirmPasswordCtrl" matInput>
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>country</mat-label>
-                <input type="text" [formControl]="CountryCtrl" matInput>
-            </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Gender</mat-label>
+                        <input type="text" [formControl]="GenderCtrl" matInput>
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>City</mat-label>
-                <input type="text" [formControl]="CityCtrl" matInput>
-            </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>country</mat-label>
+                        <input type="text" [formControl]="CountryCtrl" matInput>
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                </form>
+                <div class="item-2">
+                    <button matButton matStepperPrevious mat-flat-button color="warn">Back</button>
+                    <button matButton matStepperNext mat-flat-button color="warn">Next</button>
+                </div>
+            </div>
+        </mat-step>
 
-            <mat-form-field appearance="outline">
-                <mat-label>SkillLevel</mat-label>
-                <input type="text" [formControl]="EmailCtrl" matInput>
-            </mat-form-field>
+        <mat-step>
+            <div class="item-1">
+                <form [formGroup]="registerFg">
+                    <mat-form-field appearance="outline">
+                        <mat-label>City</mat-label>
+                        <input type="text" [formControl]="CityCtrl" matInput>
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Age</mat-label>
-                <input type="number" [formControl]="AgeCtrl" matInput>
-            </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>SkillLevel</mat-label>
+                        <input type="text" [formControl]="SkillLevelCtrl" matInput>
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>DataOfBirth</mat-label>
-                <input type="text" [formControl]="DatOfBirthCtrl" matInput>
-            </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Age</mat-label>
+                        <input type="number" [formControl]="AgeCtrl" matInput>
+                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                         <img src="images/teak.jpg" alt="">
+                    </mat-form-field>
 
-            <button routerLink="/members"
-            (click)="register()"
-            mat-flat-button
-            color="parimary"
-            [disabled]="registerFg.invalid"></button>
-        </form>
-    </div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>DataOfBirth</mat-label>
+                        <input type="number" [formControl]="DatOfBirthCtrl" matInput>
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                </form>
+            </div>
+            <ng-template matStepLabel>Done</ng-template>
+            <div class="item-2">
+                <button matButton matStepperPrevious mat-flat-button>Back</button>
+                <button routerLink="/members" (click)="register()" mat-flat-button color="parimary"
+                    [disabled]="registerFg.invalid">register</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+
 </section>
+
+<!-- <mat-step [stepControl]="basicInfoForm">
+    <form [formGroup]="basicInd">
+      <ng-template matStepLabel>اطلاعات پایه</ng-template>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>LastName</mat-label>
+        <input matInput formControlName="lastName" type="text">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>NationalId</mat-label>
+        <input matInput formControlName="nationalId" type="text">
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperNext>بعدی</button>
+      </div>
+    </form>
+  </mat-step>
+
+  مرحله دوم: اطلاعات حساب -->
+<!-- <mat-step [stepControl]="accountForm">
+    <form [formGroup]="accountForm">
+      <ng-template matStepLabel>حساب کاربری</ng-template>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput formControlName="confirmPassword" type="password">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Gender</mat-label>
+        <input matInput formControlName="gender" type="text">
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>قبلی</button>
+        <button mat-button matStepperNext>بعدی</button>
+      </div>
+    </form>
+  </mat-step>
+
+ مرحله سوم: اطلاعات دیگر -->
+<!-- <mat-step [stepControl]="extraInfoForm">
+    <form [formGroup]="extraInfoForm">
+      <ng-template matStepLabel>اطلاعات تکمیلی</ng-template>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Country</mat-label>
+        <input matInput formControlName="country" type="text">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" type="text">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Skill Level</mat-label>
+        <input matInput formControlName="skillLevel" type="text">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput formControlName="age" type="number">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput formControlName="dob" type="date">
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>قبلی</button>
+        <button mat-button color="primary" (click)="register()" [disabled]="!allFormsValid()">ثبت نام</button>
+      </div>
+    </form>
+  </mat-step>
+
+</mat-stepper>   -->

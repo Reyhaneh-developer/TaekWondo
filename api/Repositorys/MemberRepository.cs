@@ -1,14 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using api.DTOs;
-using api.Interfaces;
-using api.Models;
-using api.Settings;
-using MongoDB.Bson;
-using MongoDB.Driver;
-
 namespace api.Repositorys;
 
 public class MemberRepository : IMemberRepository
@@ -22,12 +11,7 @@ public class MemberRepository : IMemberRepository
         _collection = dbName.GetCollection<AppUser>("users");
     }
 
-    internal static async Task<LoggedInDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<List<AppUser>?> GetAllSynce(CancellationToken cancellationToken)
+    public async Task<List<AppUser>?> GetAllAsynce(CancellationToken cancellationToken)
     {
         List<AppUser> appUsers = await _collection.Find(new BsonDocument()).ToListAsync(cancellationToken);
 
@@ -36,5 +20,5 @@ public class MemberRepository : IMemberRepository
 
         return appUsers;
     }
-
 }
+

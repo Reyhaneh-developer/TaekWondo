@@ -1,14 +1,14 @@
-section{
+section {
     display: flex;
     justify-content: center;
 
-    .item-1{
+    .item-1 {
         display: flex;
         flex-direction: column;
         align-items: baseline;
         padding: 0.5rem;
-        
-        form{
+
+        form {
             padding: 2rem;
             gap: 1rem;
             display: flex;
