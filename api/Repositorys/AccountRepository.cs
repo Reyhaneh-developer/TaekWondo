@@ -1,31 +1,42 @@
+using api.Services;
+
 namespace api.Repositorys;
 
 public class AccountRepository : IAccountRepository
 {
+    
+    #region Mongodb
     private readonly IMongoCollection<AppUser> _collection;
+    private readonly ITokenService _tokenService;
 
     // Dependency Injection
-    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
+
+        _tokenService = tokenService;
     }
+    #endregion
 
     public async Task<LoggedInDto?> RegisterAsync(AppUser userInput, CancellationToken cancellationToken)
     {
-        AppUser user = await _collection.Find<AppUser>(doc => doc.Email == userInput.Email).FirstOrDefaultAsync(cancellationToken);
+        AppUser user = await _collection.Find<AppUser>(doc =>
+            doc.Email == userInput.Email).FirstOrDefaultAsync(cancellationToken);
 
         if (user is not null)
             return null;
 
         await _collection.InsertOneAsync(userInput, null, cancellationToken);
 
-        LoggedInDto loggedInDto = new(
-            Email: userInput.Email,
-            Name: userInput.Name
-        );
+        string? token =  _tokenService.CreateToken(userInput);
 
-        return loggedInDto;
+        return Mappers.ConvertAppUserToLoggedInDto(userInput, token);
+
+        // return loggedInDto;
+
+        // DTO => Data / Transfer / Object
+        // return Mappers.ConvertAppUserToLoggedInDto(userInput);
     }
 
     public async Task<LoggedInDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
@@ -36,12 +47,12 @@ public class AccountRepository : IAccountRepository
         if (user is null)
             return null;
 
-        LoggedInDto loggedInDto = new(
-            Email: user.Email,
-            Name: user.Name
-        );
+        string? token =  _tokenService.CreateToken(user);
 
-        return loggedInDto;
+        return Mappers.ConvertAppUserToLoggedInDto(user, token);
+
+
+    //     return loggedInDto;
     }
 
     public async Task<DeleteResult?> DeleteByIdAsync(string userId, CancellationToken cancellationToken)

@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace api.Extensions;
 
@@ -36,7 +36,7 @@ public static class ApplicationServiceExtensions
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
             });
         #endregion Cors
-        
+
         #region Authentication & Authorization
         string tokenValue = configuration["TokenKey"]!;
 

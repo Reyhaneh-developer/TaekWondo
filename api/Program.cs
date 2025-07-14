@@ -1,16 +1,13 @@
-using api.Interfaces;
-using api.Repositorys;
-using api.Settings;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+using api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.services.AddApplicationService(builder.configuration);
-builder.services.AddRepositoryService();
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddApplicationService(builder.Configuration);
+builder.Services.AddRepositoryService();
 
 var app = builder.Build();
 
@@ -21,8 +18,6 @@ app.UseHttpsRedirection();
 app.UseCors();
 
 app.UseAuthentication(); 
-
-app.UseAuthorization();
 
 app.UseAuthorization();
 

@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using api.Services;
 
 namespace api.Extensions;
 
@@ -9,9 +6,10 @@ public static class RepositoryServiceExtensions
 {
     public static IServiceCollection AddRepositoryService(this IServiceCollection services)
     {
-        builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-        builder.Services.AddScoped<IUserRepository,UserRepository>();
-        builder.Services.AddScoped<IMemberRepository,MemberRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<IMemberRepository, MemberRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ITokenService, TokenService>();
 
         return services;
     }
